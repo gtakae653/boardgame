@@ -4,17 +4,17 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "boardgame.io": "^0.43.2"
+    "boardgame.io": "^0.43.2",
+    "react": "^17.0.1"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4"
   },
   "scripts": {
-	"start": "parcel index.html --open",
+    "start": "parcel index.html --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-
-	"browserslist": "> 0.4% and not ie 11",
+  "browserslist": "> 0.4% and not ie 11",
   "author": "",
   "license": "ISC"
 }
