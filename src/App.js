@@ -3,14 +3,15 @@ import { TicTacToe } from './Game';
 import { TicTacToeBoard } from './Board';
 
 class TicTacToeClient {
-  constructor() {
+  constructor(rootElement) {
 	// As before, but we also subscribe to the client:
-    this.client.subscribe(state => this.update(state));
+    
     this.client = Client({ game: TicTacToe });
     this.client.start();
 	this.rootElement = rootElement;
     this.createBoard();
     this.attachListeners();
+	this.client.subscribe(state => this.update(state));
   }
 
 	createBoard() {
@@ -18,10 +19,10 @@ class TicTacToeClient {
     		const rows = [];
     		for (let i = 0; i < 3; i++) {
       			const cells = [];
-      				for (let j = 0; j < 3; j++) {
-        				const id = 3 * i + j;
-        				cells.push(`<td class="cell" data-id="${id}"></td>`);
-      				}
+      			for (let j = 0; j < 3; j++) {
+        			const id = 3 * i + j;
+        			cells.push(`<td class="cell" data-id="${id}"></td>`);
+      			}
       			rows.push(`<tr>${cells.join('')}</tr>`);
     		}
 
@@ -80,5 +81,4 @@ const App = Client({
 });
 
 export default App;
-
 
