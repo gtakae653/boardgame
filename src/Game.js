@@ -13,7 +13,7 @@ export const TicTacToe = {
 	if (G.cells[id] !== null) {
     		return INVALID_MOVE;
   	}
-      G.cells[id] = ctx.currentPlayer;
+      G.cells[id] = ctx.currentPlayer;//ここで各セルにプレイヤー名(0か1)を入れている？
     },
   },
 
@@ -99,37 +99,36 @@ function IsVictory(cells) {
 [60,70,80],[62,70,78]]
   ];
 
-const p = [positions[0],positions[1],positions[2],positions[3],positions[4],positions[5],positions[6],positions[7],positions[8]];
-const q = [
-p[0[0]],p[0[1]],p[0[2]],p[0[3]],p[0[4]],p[0[5]],p[0[6]],p[0[7]],
-p[1[0]],p[1[1]],p[1[2]],p[1[3]],p[1[4]],p[1[5]],p[1[6]],p[1[7]],
-p[2[0]],p[2[1]],p[2[2]],p[2[3]],p[2[4]],p[2[5]],p[2[6]],p[2[7]],
-p[3[0]],p[3[1]],p[3[2]],p[3[3]],p[3[4]],p[3[5]],p[3[6]],p[3[7]],
-p[4[0]],p[4[1]],p[4[2]],p[4[3]],p[4[4]],p[4[5]],p[4[6]],p[4[7]],
-p[5[0]],p[5[1]],p[5[2]],p[5[3]],p[5[4]],p[5[5]],p[5[6]],p[5[7]],
-p[6[0]],p[6[1]],p[6[2]],p[6[3]],p[6[4]],p[6[5]],p[6[6]],p[6[7]],
-p[7[0]],p[7[1]],p[7[2]],p[7[3]],p[7[4]],p[7[5]],p[7[6]],p[7[7]],
-p[8[0]],p[8[1]],p[8[2]],p[8[3]],p[8[4]],p[8[5]],p[8[6]],p[8[7]]
-];
-
-
-  const isRowComplete = row => {
-    const symbols = row.map(i => cells[q[i]]);
-    return symbols.every(i => i !== null && i === symbols[0]);
-  };
-
-  return positions.map(isRowComplete).some(i => i === true);
-//someは1つでも配列の中身が条件を満たしていればtrueを返す
+function isRowComplete(row){
+	const symbols = row.map(i => cells[i]);//cells[i]はそのセルの中身が何か見ている(nullか0か1か)
+	const reult = symbols.every(i => i !== null && i === symbols[0]);//symbols[0]は、[0,1,2]などの配列の頭の値を見て、残りの２つの要素が全て同じかを見ている
+	if(result == true){
+		return symbols[0];
+	}
 }
 
+function isOccupied(){
+	for(var i=0;i<positions.length;i++){
+		if(isRowComplete(i) == 0){
+			return 0;
+		}else if(isRowComplete(i) == 1){
+			return 1;
+		}else{
+			return -1;
+		}
+	}
+}
+
+var OccupiedArray = [];
+for(var i=0;i<positions.length;i++){
+	OccupiedArray.push(isOccupied);
+}
+
+return OccupiedArray.some(i => i !== -1);
+
+}
 // Return true if all `cells` are occupied.
 function IsDraw(cells) {
   return cells.filter(c => c === null).length === 0;
 }
 
-function isOccupied(n){
-//マス単位で取られている個所は0か1(プレイヤー番号)を返し、取られていなければ-1を返す
-//if(p[n]
-
-
-}
