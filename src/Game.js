@@ -42,9 +42,6 @@ export const TicTacToe = {
 
 
 
-
-
-
 // Return true if `cells` is in a winning configuration.
 function IsVictory(cells) {
   const positions = [
@@ -108,13 +105,14 @@ function isRowComplete(row){
 }
 */
 function isOccupied(n){
-	var temporaryArray;
+	var temporaryArray = [];
+	var z;
     //postitions[n]の各列（positions[n][i]、i=0...8）について、
 	for (var i=0; i<positions[n].length; i++) {
 	//揃っている（つまりpositions[n][i][j]、j=0...2、が全部同じ) ものがあればそれを返す、揃っていなければ-1を返す
 	    for (var j=0; j<positions[n][i].length; j++) {
-		temporaryArray.push(positions[n][i][j]);
-		console.log(temporaryArray);
+		z = positions[n][i][j];
+		temporaryArray.push(cells[z]);
 	    }
 		if(temporaryArray[0] == temporaryArray[1] && temporaryArray[1] == temporaryArray[2] && temporaryArray[0] != null){
 			if(temporaryArray[0] == 0){
@@ -128,15 +126,12 @@ function isOccupied(n){
 	}
 }
 
-/*var OccupiedArray = [];
-for(var i=0;i<positions.length;i++){
-	OccupiedArray.push(isOccupied);
-}
-*/
-//return isOccupied();
+console.log(isOccupied(0));
 
+if(isOccupied(0) != -1){
+	return true;
 }
-
+}
 // Return true if all `cells` are occupied.
 function IsDraw(cells) {
   return cells.filter(c => c === null).length === 0;
