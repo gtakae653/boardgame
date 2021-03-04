@@ -106,29 +106,38 @@ function isRowComplete(row){
 */
 function isOccupied(n){
 	var temporaryArray = [];
+	var occupiedArray = [];
 	var z;
     //postitions[n]の各列（positions[n][i]、i=0...8）について、
 	for (var i=0; i<positions[n].length; i++) {
 	//揃っている（つまりpositions[n][i][j]、j=0...2、が全部同じ) ものがあればそれを返す、揃っていなければ-1を返す
 	    for (var j=0; j<positions[n][i].length; j++) {
 		z = positions[n][i][j];
-		temporaryArray.push(cells[z]);
+		temporaryArray[j] = cells[z];
+		console.log(temporaryArray);
 	    }
+	
 		if(temporaryArray[0] == temporaryArray[1] && temporaryArray[1] == temporaryArray[2] && temporaryArray[0] != null){
 			if(temporaryArray[0] == 0){
-				return 0;
-			}else{
-				return 1;
+				occupiedArray[i] = 0;
+			}else{	
+				occupiedArray[i] = 1;
 			}
 		}else{
-			return -1;
+			occupiedArray[i] = -1;
+		}
+	}
+
+	for(var i=0;i<occupiedArray.length;i++){
+		if(occupiedArray[i] != -1){
+			return occupiedArray[i];
 		}
 	}
 }
 
 console.log(isOccupied(0));
 
-if(isOccupied(0) != -1){
+if(isOccupied(0) != null){
 	return true;
 }
 }
