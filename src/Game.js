@@ -98,7 +98,7 @@ function IsVictory(cells) {
 [60,69,78],[61,70,79],[62,71,80],
 [60,70,80],[62,70,78]]
   ];
-
+/*
 function isRowComplete(row){
 	const symbols = row.map(i => cells[i]);//cells[i]はそのセルの中身が何か見ている(nullか0か1か)
 	const reult = symbols.every(i => i !== null && i === symbols[0]);//symbols[0]は、[0,1,2]などの配列の頭の値を見て、残りの２つの要素が全て同じかを見ている
@@ -106,27 +106,37 @@ function isRowComplete(row){
 		return symbols[0];
 	}
 }
-
-function isOccupied(){
-	for(var i=0;i<positions.length;i++){
-		if(isRowComplete(i) == 0){
-			return 0;
-		}else if(isRowComplete(i) == 1){
-			return 1;
+*/
+function isOccupied(n){
+	var temporaryArray;
+    //postitions[n]の各列（positions[n][i]、i=0...8）について、
+	for (var i=0; i<positions[n].length; i++) {
+	//揃っている（つまりpositions[n][i][j]、j=0...2、が全部同じ) ものがあればそれを返す、揃っていなければ-1を返す
+	    for (var j=0; j<positions[n][i].length; j++) {
+		temporaryArray.push(positions[n][i][j]);
+		console.log(temporaryArray);
+	    }
+		if(temporaryArray[0] == temporaryArray[1] && temporaryArray[1] == temporaryArray[2] && temporaryArray[0] != null){
+			if(temporaryArray[0] == 0){
+				return 0;
+			}else{
+				return 1;
+			}
 		}else{
 			return -1;
 		}
 	}
 }
 
-var OccupiedArray = [];
+/*var OccupiedArray = [];
 for(var i=0;i<positions.length;i++){
 	OccupiedArray.push(isOccupied);
 }
-
-return OccupiedArray.some(i => i !== -1);
+*/
+//return isOccupied();
 
 }
+
 // Return true if all `cells` are occupied.
 function IsDraw(cells) {
   return cells.filter(c => c === null).length === 0;
