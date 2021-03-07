@@ -95,15 +95,13 @@ function IsVictory(cells) {
 [60,69,78],[61,70,79],[62,71,80],
 [60,70,80],[62,70,78]]
   ];
-/*
-function isRowComplete(row){
-	const symbols = row.map(i => cells[i]);//cells[i]はそのセルの中身が何か見ている(nullか0か1か)
-	const reult = symbols.every(i => i !== null && i === symbols[0]);//symbols[0]は、[0,1,2]などの配列の頭の値を見て、残りの２つの要素が全て同じかを見ている
-	if(result == true){
-		return symbols[0];
-	}
-}
-*/
+
+const place = [
+//マス単位での配置
+[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
+[1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
+];
+
 function isOccupied(n){
 	var temporaryArray = [];
 	var occupiedArray = [];
@@ -114,7 +112,7 @@ function isOccupied(n){
 	    for (var j=0; j<positions[n][i].length; j++) {
 		z = positions[n][i][j];
 		temporaryArray[j] = cells[z];
-		console.log(temporaryArray);
+		//console.log(temporaryArray);
 	    }
 	
 		if(temporaryArray[0] == temporaryArray[1] && temporaryArray[1] == temporaryArray[2] && temporaryArray[0] != null){
@@ -126,6 +124,7 @@ function isOccupied(n){
 		}else{
 			occupiedArray[i] = -1;
 		}
+		
 	}
 
 	for(var i=0;i<occupiedArray.length;i++){
@@ -135,11 +134,23 @@ function isOccupied(n){
 	}
 }
 
-console.log(isOccupied(0));
-
-if(isOccupied(0) != null){
-	return true;
+for(var i=0;i<9;i++){
+	if(isOccupied(i) != null){
+		placeAssign(i);
+		return true;
+	}
 }
+
+function placeAssign(n){//占領されたマスの番号と一致するplace配列の中身を書き換えたい
+	for(var a=0;a<8;a++){
+		for(var b=0;b<3;b++){
+			if(place[a][b] == n){
+				place[a][b] = n;
+			}
+		}
+	}
+}
+
 }
 // Return true if all `cells` are occupied.
 function IsDraw(cells) {
