@@ -137,7 +137,11 @@ function isOccupied(n){
 for(var i=0;i<9;i++){
 	if(isOccupied(i) != null){
 		placeAssign(i);
-		return true;
+		for(var x=0;x<8;x++){
+			if(place[x][0] == place[x][1]  && place[x][1] == place[x][2] && place[x][0] != null){
+				return true;
+			}
+		}
 	}
 }
 
@@ -145,7 +149,7 @@ function placeAssign(n){//è—Ì‚³‚ê‚½ƒ}ƒX‚Ì”Ô†‚Æˆê’v‚·‚éplace”z—ñ‚Ì’†g‚ð‘‚«Š·‚
 	for(var a=0;a<8;a++){
 		for(var b=0;b<3;b++){
 			if(place[a][b] == n){
-				place[a][b] = n;
+				place[a][b] = isOccupied(n);
 			}
 		}
 	}
