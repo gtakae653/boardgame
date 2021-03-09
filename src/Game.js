@@ -149,7 +149,11 @@ function placeAssign(n){//è—Ì‚³‚ê‚½ƒ}ƒX‚Ì”Ô†‚Æˆê’v‚·‚éplace”z—ñ‚Ì’†g‚ð‘‚«Š·‚
 	for(var a=0;a<8;a++){
 		for(var b=0;b<3;b++){
 			if(place[a][b] == n){
-				place[a][b] = isOccupied(n);
+				if(isOccupied(n) == 0){
+					place[a][b] = true;
+				}else{
+					place[a][b] = false;
+				}
 			}
 		}
 	}
