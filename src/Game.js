@@ -1,42 +1,41 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
 
 export const TicTacToe = {
-  setup: () => ({ cells: Array(81).fill(null) }),
-
-
-  turn: {
-    moveLimit: 1,
-  },
-
-  moves: {
-    clickCell: (G, ctx, id) => {
-	if (G.cells[id] !== null) {
-    		return INVALID_MOVE;
-  	}
-      G.cells[id] = ctx.currentPlayer;//‚±‚±‚ÅŠeƒZƒ‹‚ÉƒvƒŒƒCƒ„[–¼(0‚©1)‚ð“ü‚ê‚Ä‚¢‚éH
+    // ã“ã“ã§ç”Ÿæˆã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒ Gã¨ã—ã¦å„ç¨®é–¢æ•°ã«æ¸¡ã•ã‚Œã‚‹
+    setup: () => ({ cells: Array(81).fill(null) }),
+    turn: {
+        moveLimit: 1,
     },
-  },
 
-  endIf: (G, ctx) => {
-    if (IsVictory(G.cells)) {
-      return { winner: ctx.currentPlayer };
-    }
-    if (IsDraw(G.cells)) {
-      return { draw: true };
-    }
-  },
+    moves: {
+        clickCell: (G, ctx, id) => {
+        	if (G.cells[id] !== null) {
+            		return INVALID_MOVE;
+          	}
+            G.cells[id] = ctx.currentPlayer;//ã“ã“ã§å„ã‚»ãƒ«ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å(0ã‹1)ã‚’å…¥ã‚Œã¦ã„ã‚‹ï¼Ÿ
+        },
+    },
 
-	ai: {
-    enumerate: (G, ctx) => {
-      let moves = [];
-      for (let i = 0; i < 81; i++) {
-        if (G.cells[i] === null) {
-          moves.push({ move: 'clickCell', args: [i] });
+    endIf: (G, ctx) => {
+        if (IsVictory(G.cells)) {
+            return { winner: ctx.currentPlayer };
         }
-      }
-      return moves;
+        if (IsDraw(G.cells)) {
+            return { draw: true };
+        }
     },
-  },
+
+    ai: {
+        enumerate: (G, ctx) => {
+            let moves = [];
+            for (let i = 0; i < 81; i++) {
+                if (G.cells[i] === null) {
+                    moves.push({ move: 'clickCell', args: [i] });
+                }
+            }
+            return moves;
+        },
+    },
 
 };
 
@@ -45,59 +44,59 @@ export const TicTacToe = {
 // Return true if `cells` is in a winning configuration.
 function IsVictory(cells) {
   const positions = [
-//‚Pƒ}ƒX–Ú
+//ï¼‘ãƒžã‚¹ç›®
 [[0, 1, 2], [9, 10, 11], [18, 19, 20],
 [0, 9, 18],[1, 10, 19], [2, 11, 20],
 [0, 10, 20], [2, 10, 18]],
 
-//‚Qƒ}ƒX–Ú
+//ï¼’ãƒžã‚¹ç›®
 [[3,4,5],[12,13,14],[21,22,23],
 [3,12,21],[4,13,22],[5,14,23],
 [3,13,23],[5,13,21]],
 
-//‚Rƒ}ƒX–Ú
+//ï¼“ãƒžã‚¹ç›®
 [[6,7,8],[15,16,17],[24,25,26],
 [6,15,24],[7,16,25],[8,17,26],
 [6,16,26],[8,16,24]],
 
-//‚Sƒ}ƒX–Ú
+//ï¼”ãƒžã‚¹ç›®
 [[27,28,29],[36,37,38],[45,46,47],
 [27,36,45],[28,37,46],[29,38,47],
 [27,37,47],[29,37,45]],
 
 
-//‚Tƒ}ƒX–Ú
+//ï¼•ãƒžã‚¹ç›®
 [[30,31,32],[39,40,41],[48,49,50],
 [30,39,48],[31,40,49],[32,41,50],
 [30,40,50],[32,40,48]],
 
 
-//‚Uƒ}ƒX–Ú
+//ï¼–ãƒžã‚¹ç›®
 [[33,34,35],[42,43,44],[51,52,53],
 [33,42,51],[34,43,52],[35,44,53],
 [33,43,53],[35,43,51]],
 
 
-//‚Vƒ}ƒX–Ú
+//ï¼—ãƒžã‚¹ç›®
 [[54,55,56],[63,64,65],[72,73,74],
 [54,63,72],[55,64,73],[56,65,74],
 [54,64,74],[56,64,72]],
 
 
-//‚Wƒ}ƒX–Ú
+//ï¼˜ãƒžã‚¹ç›®
 [[57,58,59],[66,67,68],[75,76,77],
 [57,66,75],[58,67,76],[59,68,77],
 [57,67,77],[59,67,75]],
 
 
-//‚Xƒ}ƒX–Ú
+//ï¼™ãƒžã‚¹ç›®
 [[60,61,62],[69,70,71],[78,79,80],
 [60,69,78],[61,70,79],[62,71,80],
 [60,70,80],[62,70,78]]
   ];
 
 const place = [
-//ƒ}ƒX’PˆÊ‚Å‚Ì”z’u
+//ãƒžã‚¹å˜ä½ã§ã®é…ç½®
 [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
 [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
 ];
@@ -106,28 +105,28 @@ function isOccupied(n){
 	var temporaryArray = [];
 	var occupiedArray = [];
 	var z;
-    //postitions[n]‚ÌŠe—ñipositions[n][i]Ai=0...8j‚É‚Â‚¢‚ÄA
-	for (var i=0; i<positions[n].length; i++) {
-	//‘µ‚Á‚Ä‚¢‚éi‚Â‚Ü‚èpositions[n][i][j]Aj=0...2A‚ª‘S•”“¯‚¶) ‚à‚Ì‚ª‚ ‚ê‚Î‚»‚ê‚ð•Ô‚·A‘µ‚Á‚Ä‚¢‚È‚¯‚ê‚Î-1‚ð•Ô‚·
+    //postitions[n]ã®å„åˆ—ï¼ˆpositions[n][i]ã€i=0...8ï¼‰ã«ã¤ã„ã¦ã€
+	for (let i=0; i<positions[n].length; i++) {
+	//æƒã£ã¦ã„ã‚‹ï¼ˆã¤ã¾ã‚Špositions[n][i][j]ã€j=0...2ã€ãŒå…¨éƒ¨åŒã˜) ã‚‚ã®ãŒã‚ã‚Œã°ãã‚Œã‚’è¿”ã™ã€æƒã£ã¦ã„ãªã‘ã‚Œã°-1ã‚’è¿”ã™
 	    for (var j=0; j<positions[n][i].length; j++) {
-		z = positions[n][i][j];
-		temporaryArray[j] = cells[z];
-		//console.log(temporaryArray);
+    		z = positions[n][i][j];
+    		temporaryArray[j] = cells[z];
+    		//console.log(temporaryArray);
 	    }
-	
+
 		if(temporaryArray[0] == temporaryArray[1] && temporaryArray[1] == temporaryArray[2] && temporaryArray[0] != null){
 			if(temporaryArray[0] == 0){
 				occupiedArray[i] = 0;
-			}else{	
+			}else{
 				occupiedArray[i] = 1;
 			}
 		}else{
 			occupiedArray[i] = -1;
 		}
-		
+
 	}
 
-	for(var i=0;i<occupiedArray.length;i++){
+	for(let i=0;i<occupiedArray.length;i++){
 		if(occupiedArray[i] != -1){
 			return occupiedArray[i];
 		}
@@ -145,7 +144,7 @@ for(var i=0;i<9;i++){
 	}
 }
 
-function placeAssign(n){//è—Ì‚³‚ê‚½ƒ}ƒX‚Ì”Ô†‚Æˆê’v‚·‚éplace”z—ñ‚Ì’†g‚ð‘‚«Š·‚¦‚½‚¢
+function placeAssign(n){//å é ˜ã•ã‚ŒãŸãƒžã‚¹ã®ç•ªå·ã¨ä¸€è‡´ã™ã‚‹placeé…åˆ—ã®ä¸­èº«ã‚’æ›¸ãæ›ãˆãŸã„
 	for(var a=0;a<8;a++){
 		for(var b=0;b<3;b++){
 			if(place[a][b] == n){
@@ -162,6 +161,5 @@ function placeAssign(n){//è—Ì‚³‚ê‚½ƒ}ƒX‚Ì”Ô†‚Æˆê’v‚·‚éplace”z—ñ‚Ì’†g‚ð‘‚«Š·‚
 }
 // Return true if all `cells` are occupied.
 function IsDraw(cells) {
-  return cells.filter(c => c === null).length === 0;
+    return cells.filter(c => c === null).length === 0;
 }
-
