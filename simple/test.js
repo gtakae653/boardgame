@@ -1,4 +1,4 @@
-// node --experimental-modules test.js
+// node test.js
 
 /*
  * Copyright 2018 The boardgame.io Authors
@@ -21,7 +21,7 @@ import { Stage } from '../core/turn-order';
 //import type { AnyFn, Game, Ctx } from '../types';
 */
 import { Client, Local, MCTSBot, RandomBot, ReactClient, ReactNativeClient, /*Simulate,*/ CreateGameReducer, SocketIO, Step, TurnOrder , InitializeGame,
-MAKE_MOVE, GAME_EVENT, makeMove, ProcessGameConfig, Stage, Bot} from "./boardgameio";
+MAKE_MOVE, GAME_EVENT, makeMove, ProcessGameConfig, Stage, Bot} from "./boardgameio.js";
 
 const describe=async (name, action)=> {console.log("TestSuite",name); await action(); };
 const test=async (name, action)=> {console.log("Testcase",name); await action(); };

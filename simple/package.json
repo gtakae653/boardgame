@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "simple",
   "version": "1.0.0",
   "description": "test",
