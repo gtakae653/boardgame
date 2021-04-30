@@ -120,7 +120,7 @@ describe('MCTSBot', async () => {
     const iterations = 100;//400;
     
     const objectives = () => ({
-	//ctx‚Ì•û‚Íƒ^[ƒ“‚Ìî•ñ(‚Á‚Û‚¢)
+	//ctxã®æ–¹ã¯ã‚¿ãƒ¼ãƒ³ã®æƒ…å ±(ã£ã½ã„)
       'play-on-square-0': {
         checker: (G,ctx) => {
 		/*if(G.cells[0] !== null){
