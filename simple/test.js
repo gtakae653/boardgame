@@ -123,14 +123,15 @@ describe('MCTSBot', async () => {
 	//ctxの方はターンの情報(っぽい)
       'play-on-square-0': {
         checker: (G,ctx) => {
-		if(G.cells[0] !== null){
-			return true;
-		}
-		if (ctx.turn==3 && G.cells[0] ===0 && G.cells[1] ===1){
+		
+		if (G.cells[0] ==0 && G.cells[1] ==1){
 			if(G.cells[4] !== null){
 				return true;
 			}
 		} 
+		if(G.cells[0] !== null){
+			return true;
+		}
 	},
         weight: 50
       },
