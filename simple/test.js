@@ -1,4 +1,4 @@
-// node test.js
+﻿// node test.js
 
 /*
  * Copyright 2018 The boardgame.io Authors
@@ -120,7 +120,6 @@ describe('MCTSBot', async () => {
     const iterations = 100;//400;
     
     const objectives = () => ({
-	//ctx??u??^?[????i?n(?B?￠)
       'play-on-square-0': {
         checker: (G,ctx) => {
 		if(G.cells[0] !== null){
