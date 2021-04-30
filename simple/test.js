@@ -120,12 +120,12 @@ describe('MCTSBot', async () => {
     const iterations = 100;//400;
     
     const objectives = () => ({
-	//ctx‚Ì•û‚Íƒ^[ƒ“‚Ìî•ñ(‚Á‚Û‚¢)
+	//ctx??u??^?[????i?n(?B?ï¿ )
       'play-on-square-0': {
         checker: (G,ctx) => {
-		/*if(G.cells[0] !== null){
+		if(G.cells[0] !== null){
 			return true;
-		}*/
+		}
 		if (ctx.turn==3 && G.cells[0] ===0 && G.cells[1] ===1){
 			if(G.cells[4] !== null){
 				return true;
