@@ -1,4 +1,4 @@
-// node test.js
+﻿// node test.js
 
 /*
  * Copyright 2018 The boardgame.io Authors
