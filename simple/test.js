@@ -35,6 +35,7 @@ async function Simulate({ game, bots, state, depth, onEnd=()=>false}) {
     let iter = 0;
     while (state.ctx.gameover === undefined && iter < depth) {
         let playerID = state.ctx.currentPlayer;
+	console.log(state.ctx);
         if (state.ctx.activePlayers) {
             playerID = Object.keys(state.ctx.activePlayers)[0];
         }
@@ -119,12 +120,22 @@ describe('MCTSBot', async () => {
     const iterations = 100;//400;
     
     const objectives = () => ({
+	//ctx‚Ì•û‚Íƒ^[ƒ“‚Ìî•ñ(‚Á‚Û‚¢)
       'play-on-square-0': {
-        checker: (G) => G.cells[0] !== null,
-        weight: 50,
+        checker: (G,ctx) => {
+		/*if(G.cells[0] !== null){
+			return true;
+		}*/
+		if (ctx.turn==3 && G.cells[0] ===0 && G.cells[1] ===1){
+			if(G.cells[4] !== null){
+				return true;
+			}
+		} 
+	},
+        weight: 50
       },
       'play-on-square-1': {
-        checker: (G) => G.cells[1] !== null,
+        checker: (G,ctx) => G.cells[1] !== null,
         weight: 10,
       },
     });
