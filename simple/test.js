@@ -35,7 +35,7 @@ async function Simulate({ game, bots, state, depth, onEnd=()=>false}) {
     let iter = 0;
     while (state.ctx.gameover === undefined && iter < depth) {
         let playerID = state.ctx.currentPlayer;
-	console.log(state.ctx);
+	console.log("ctx",state.ctx);
         if (state.ctx.activePlayers) {
             playerID = Object.keys(state.ctx.activePlayers)[0];
         }
@@ -111,6 +111,21 @@ const enumerate = (G, ctx, playerID) => {
   return r;
 };
 
+/*
+pat=[ [0,1,2, 3,4,5, 6,7,8 ]   ,
+      [6,3,0,
+       7,4,1,
+       8,5,2,]// 90度右回転
+      [....]  // 180度右回転
+      [....]  // 270度右回転
+      [2,1,0, 5,4,3, 8,7,6]  左右反転
+      [             ]     //の90度回転
+      [             ]     //の180度回転
+      [             ]     //の270度回転
+//上下反転は要らないはずです（理由を考えてみよう）
+];
+*/
+
 
 describe('MCTSBot', async () => {
 
@@ -118,25 +133,140 @@ describe('MCTSBot', async () => {
   await test('MCTSBot vs. MCTSBot', async () => {
     const initialState = InitializeGame({ game: TicTacToe });
     const iterations = 100;//400;
-    
+
     const objectives = () => ({
 	//ctxの方はターンの情報(っぽい)
-      'play-on-square-0': {
+
+//最初に角
+      'play-on-square-0-1': {//最初に角[0]を取った場合
         checker: (G,ctx) => {
-		
-		if (G.cells[0] ==0 && G.cells[1] ==1){
-			if(G.cells[4] !== null){
-				return true;
-			}
-		} 
 		if(G.cells[0] !== null){
 			return true;
 		}
 	},
         weight: 50
       },
+
+	'play-on-square-2-3':{
+		checker:(G,ctx) => {
+			if(ctx.turn == 4 && G.cells[0] === "0" && G.cells[2] !== "1" && (G.cells[6] === "1" || G.cells[7] === "1" || G.cells[8] === "1")){
+				if(G.cells[2] === "0"){
+					console.log("aaa");
+					return true;
+				}
+			}
+		},
+		weight:50
+	},
+
+	'play-on-square-2-5':{
+		checker:(G,ctx) => {
+			if(ctx.turn == 6 && G.cells[0] === "0" && G.cells[2] === "0" && (G.cells[6] === "1" || G.cells[7] === "1" || G.cells[8] === "1")){
+				if(G.cells[1] !== "1"){
+					if(G.cells[1] === "0"){
+						return true;
+					}
+				}else{
+					if(G.cells[6] === "1" && G.cells[8] === "0"){
+						return true;
+					}else if(G.cells[7] === "1" && G.cells[4] === "0"){
+						return true;
+					}else if(G.cells[8] === "1" && G.cells[6] === "0"){
+						return true;
+					}else{
+					}
+				}
+			}
+		},
+		weight:50
+	},
+
+	'play-on-square-4-3':{
+		checker:(G,ctx) => {
+			if(ctx.turn == 4 && G.cells[0] === "0" && G.cells[4] !== "1" && (G.cells[1] === "1" || G.cells[3] === "1")){
+				if(G.cells[4] === "0"){
+					return true;
+				}
+			}
+		},
+		weight:50
+	},
+
+	'play-on-square-6-3':{
+		checker:(G,ctx) => {
+			if(ctx.turn == 4 && G.cells[0] === "0" && G.cells[6] !== "1" && (G.cells[2] === "1" || G.cells[5] === "1" || G.cells[8] === "1")){
+				if(G.cells[6] === "0"){
+					return true;
+				}
+			}
+		},
+		weight:50
+	},
+
+
+
+
+
+//最初に真ん中
+	'play-on-square-not1':{
+		checker:(G,ctx) => {
+			if(ctx.turn == 4 && G.cells[4] === "0" && G.cells[7] === "1" ){
+				if(G.cells[1] !== "0"){
+					return true;
+				}
+			}
+		},
+		weight:50
+	},
+	'play-on-square-not3':{
+		checker:(G,ctx) => {
+			if(ctx.turn == 4 && G.cells[4] === "0" && G.cells[5] === "1" ){
+				if(G.cells[3] !== "0"){
+					return true;
+				}
+			}
+		},
+		weight:50
+	},
+	'play-on-square-not5':{
+		checker:(G,ctx) => {
+			if(ctx.turn == 4 && G.cells[4] === "0" && G.cells[3] === "1" ){
+				if(G.cells[5] !== "0"){
+					return true;
+				}
+			}
+		},
+		weight:50
+	},
+	'play-on-square-not7':{
+		checker:(G,ctx) => {
+			if(ctx.turn == 4 && G.cells[4] === "0" && G.cells[1] === "1" ){
+				if(G.cells[7] !== "0"){
+					return true;
+				}
+			}
+		},
+		weight:50
+	},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       'play-on-square-1': {
-        checker: (G,ctx) => G.cells[1] !== null,
+        checker: (G,ctx) => G.cells[6] !== null,
         weight: 10,
       },
     });
@@ -166,7 +296,7 @@ describe('MCTSBot', async () => {
         bots,
         state,
         onEnd: ({action, state})=> {
-           console.log("TURN", action, state.G.cells);
+           console.log("TURN", action, state.G.cells,state.ctx);
         }
       });
       console.log("RESULT", endState);
