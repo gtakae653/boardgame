@@ -167,18 +167,20 @@ describe('MCTSBot', async () => {
 						return true;
 					}
 				}else{
-					if(G.cells[6] === "1" && G.cells[8] === "0"){
-						return true;
-					}else if(G.cells[7] === "1" && G.cells[4] === "0"){
+					if(G.cells[6] === "1"){
+						if( G.cells[8] === "0"){
+							return true;
+						}
+					}/*else if(G.cells[7] === "1" && G.cells[4] === "0"){
 						return true;
 					}else if(G.cells[8] === "1" && G.cells[6] === "0"){
 						return true;
 					}else{
-					}
+					}*/
 				}
 			}
 		},
-		weight:50
+		weight:0.5
 	},
 
 	'play-on-square-4-3':{
@@ -189,7 +191,7 @@ describe('MCTSBot', async () => {
 				}
 			}
 		},
-		weight:50
+		weight:0.5
 	},
 
 	'play-on-square-6-3':{
@@ -200,7 +202,7 @@ describe('MCTSBot', async () => {
 				}
 			}
 		},
-		weight:50
+		weight:0.5
 	},
 
 
@@ -208,7 +210,7 @@ describe('MCTSBot', async () => {
 
 
 //最初に真ん中
-	'play-on-square-not1':{
+/*	'play-on-square-not1':{
 		checker:(G,ctx) => {
 			if(ctx.turn == 4 && G.cells[4] === "0" && G.cells[7] === "1" ){
 				if(G.cells[1] !== "0"){
@@ -250,7 +252,7 @@ describe('MCTSBot', async () => {
 	},
 
 
-
+*/
 
 
 
