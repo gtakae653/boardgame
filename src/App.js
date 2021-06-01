@@ -17,10 +17,10 @@ class TicTacToeClient {
 	createBoard() {
 		// Create cells in rows for the Tic-Tac-Toe board.
 		const rows = [];
-		for (let i = 0; i < 9; i++) {
+		for (let i = 0; i < /*9*/3; i++) {
   			const cells = [];
-  			for (let j = 0; j < 9; j++) {
-    			const id = 9 * i + j;
+  			for (let j = 0; j < /*9*/3; j++) {
+    			const id = /*9*/3 * i + j;
     			cells.push(`<td class="cell" data-id="${id}"></td>`);
   			}
   			rows.push(`<tr>${cells.join('')}</tr>`);

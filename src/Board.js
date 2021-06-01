@@ -25,10 +25,10 @@ export class TicTacToeBoard extends React.Component {
     };
 
     let tbody = [];
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < /*9*/3; i++) {
       let cells = [];
-      for (let j = 0; j < 9; j++) {
-        const id = 9 * i + j;
+      for (let j = 0; j < /*9*/3; j++) {
+        const id = /*9*/3 * i + j;
         cells.push(
           <td style={cellStyle} key={id} onClick={() => this.onClick(id)}>
             {this.props.G.cells[id]}

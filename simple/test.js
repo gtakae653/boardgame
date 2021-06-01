@@ -130,7 +130,7 @@ pat=[ [0,1,2, 3,4,5, 6,7,8 ]   ,
 describe('MCTSBot', async () => {
 
 
-  await test('MCTSBot vs. MCTSBot', async () => {
+  await test('RandomBot vs. MCTSBot', async () => {
     const initialState = InitializeGame({ game: TicTacToe });
     const iterations = 100;//400;
 
@@ -144,30 +144,32 @@ describe('MCTSBot', async () => {
 			return true;
 		}
 	},
-        weight: 50
+        weight: 10
       },
 
 	'play-on-square-2-3':{
 		checker:(G,ctx) => {
 			if(ctx.turn == 4 && G.cells[0] === "0" && G.cells[2] !== "1" && (G.cells[6] === "1" || G.cells[7] === "1" || G.cells[8] === "1")){
 				if(G.cells[2] === "0"){
-					console.log("aaa");
+
 					return true;
 				}
 			}
 		},
-		weight:50
+		weight:15
 	},
 
 	'play-on-square-2-5':{
 		checker:(G,ctx) => {
 			if(ctx.turn == 6 && G.cells[0] === "0" && G.cells[2] === "0" && (G.cells[6] === "1" || G.cells[7] === "1" || G.cells[8] === "1")){
-				if(G.cells[1] !== "1"){
+				/*if(G.cells[1] !== "1"){
 					if(G.cells[1] === "0"){
 						return true;
 					}
-				}else{
+				}else{*/
+
 					if(G.cells[6] === "1"){
+						console.log("aaa");
 						if( G.cells[8] === "0"){
 							return true;
 						}
@@ -177,10 +179,10 @@ describe('MCTSBot', async () => {
 						return true;
 					}else{
 					}*/
-				}
+				//}
 			}
 		},
-		weight:0.5
+		weight:20
 	},
 
 	'play-on-square-4-3':{
@@ -191,7 +193,7 @@ describe('MCTSBot', async () => {
 				}
 			}
 		},
-		weight:0.5
+		weight:1
 	},
 
 	'play-on-square-6-3':{
@@ -202,7 +204,7 @@ describe('MCTSBot', async () => {
 				}
 			}
 		},
-		weight:0.5
+		weight:1
 	},
 
 
@@ -282,14 +284,14 @@ describe('MCTSBot', async () => {
           enumerate,
           iterations,
           playoutDepth: 50,
-          objectives,
+          //objectives,
         }),
         '1': new MCTSBot({
           seed: Math.floor(Math.random()*1000),
           game: TicTacToe,
           enumerate,
           iterations,
-          objectives,
+          //objectives,
         }),
       };
       const state = initialState;
