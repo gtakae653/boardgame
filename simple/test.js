@@ -23,8 +23,13 @@ import { Stage } from '../core/turn-order';
 import { Client, Local, MCTSBot, RandomBot, ReactClient, ReactNativeClient, /*Simulate,*/ CreateGameReducer, SocketIO, Step, TurnOrder , InitializeGame,
 MAKE_MOVE, GAME_EVENT, makeMove, ProcessGameConfig, Stage, Bot} from "./boardgameio.js";
 
+
 const describe=async (name, action)=> {console.log("TestSuite",name); await action(); };
 const test=async (name, action)=> {console.log("Testcase",name); await action(); };
+let a=0;//0の勝ち数
+let b=0;//1の勝ち数
+let c=0;//引き分け
+
 
 
 async function Simulate({ game, bots, state, depth, onEnd=()=>false}) {
@@ -128,7 +133,7 @@ pat=[ [0,1,2, 3,4,5, 6,7,8 ]   ,
 
 
 describe('MCTSBot', async () => {
-
+  for(let i=0;i<100;i++){
 
   await test('RandomBot vs. MCTSBot', async () => {
     const initialState = InitializeGame({ game: TicTacToe });
@@ -303,9 +308,17 @@ describe('MCTSBot', async () => {
            console.log("TURN", action, state.G.cells,state.ctx);
         }
       });
+      if(endState.ctx.gameover.winner == 0){
+        a++;
+      }else if(endState.ctx.gameover.winner == 1){
+        b++;
+      }else{
+        c++;
+      }
       console.log("RESULT", endState);
+      console.log(a,b,c);
       //expect(endState.ctx.gameover).toEqual({ draw: true });
     }
   });
-
+  }
 });
